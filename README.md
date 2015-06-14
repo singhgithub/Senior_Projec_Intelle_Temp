@@ -15,8 +15,8 @@ Software:
   Web Application (HTML, CSS, JavaScript)
   Mobile Application (Android)
   
-After I was done with school, I was tired of sitting around, so just to do something different or freshen up. I created this webpage which 
-contains pictures, videos and documented steps of how the project was done. 
-http://singhnotes.info/mysite/SP_Desktop_App.html
-http://singhnotes.info/mysite/SP_Android_App.html
-http://singhnotes.info/mysite/SP_Web_App.html
+After I was done with school, I was tired of sitting around, so just to do something different or freshen up. I created this webpage which contains pictures, videos and documented steps of how the project was done. </br>
+
+http://singhnotes.info/mysite/SP_Desktop_App.html </br>
+http://singhnotes.info/mysite/SP_Android_App.html </br>
+http://singhnotes.info/mysite/SP_Web_App.html </br>
