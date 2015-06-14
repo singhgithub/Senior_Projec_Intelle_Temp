@@ -24,7 +24,7 @@ public class Room2_Graph_Async extends AsyncTask<String, String, String>{
 	private XYPlot mySimpleXYPlot ;
 	String params_String_parameter;
 	ArrayList<String> array = new ArrayList<String>();
-	String room3_graph_url = "http://10.164.144.96:8080/Exercise33-i_2/Room2_Servlet";
+	String room3_graph_url = "http://************:8080/Exercise33-i_2/Room2_Servlet";
 	
 	
 	public Room2_Graph_Async(XYPlot x) {
