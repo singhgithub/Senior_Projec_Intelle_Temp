@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gauge="http://schemas.android.com/apk/res/com.example.exercise34_b"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp" >
+	<!-- android:background="@drawable/background" -->
+
+   <com.example.exercise34_b.GaugeView
+        android:id="@+id/gauge_view1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        gauge:showOuterShadow="true"
+        gauge:showOuterRim="false"
+        android:layout_weight="1" />
+
+    <!-- <com.example.exercise34_b.GaugeView
+        android:id="@+id/gauge_view2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        gauge:showOuterShadow="true"
+        gauge:showOuterRim="false"
+        gauge:showNeedle="false"
+        gauge:showRanges="false"
+        gauge:showText="true"
+        gauge:textUnit="%" /> -->
+        
+    <com.example.exercise34_b.GaugeView
+        android:id="@+id/gauge_view2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        gauge:showOuterShadow="true"
+        gauge:showOuterRim="false"
+        android:layout_weight="1" />
+    
+    <com.example.exercise34_b.GaugeView
+        android:id="@+id/gauge_view3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        gauge:showOuterShadow="true"
+        gauge:showOuterRim="false"
+        android:layout_weight="1" />
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Senior_Project http Post Request</title>
+  
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  
+<!--this code just make the slide skinner 
+   <style type="text/css">
+  body {
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 62.5%;
+}
+  </style> -->
+  
+  <script>
+  var threshold_value;
+  
+  $(function() {
+	  console.log("annomous method is Called")
+    $( "#slider-vertical" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+        
+        threshold_value = ui.value;
+        console.log("threshold_value changed: " +threshold_value);
+        
+      } 
+    
+    });
+    
+    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );   		////not user what this line does
+  });
+  
+  function send_Temp_To_Servlet() {
+	  console.log("send_Temp_To_Servlet() you pressed the button");
+	  console.log("send_Temp_To_Servlet() is Called");
+	  
+	  $.post("Post_Servlet",
+				{id:88,temp:threshold_value},
+				function(rsp){
+					console.log("send_Temp_To_Servlet() post() is called");
+					console.log("send_Temp_To_Servlet() response: "+rsp);
+				});
+}
+  </script>
+</head>
+<body>
+ 
+<p>
+  <label for="amount"></label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold; font-size:30px; ">
+</p>
+ 
+<div id="slider-vertical" style="height:200px;"></div>
+ <button id="button_id" onclick="send_Temp_To_Servlet()" >Post Temp To Servlet</button>
+ 
+</body>
+</html>

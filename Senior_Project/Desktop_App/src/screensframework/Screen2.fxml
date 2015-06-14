@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" style="-fx-background-color: #F7F8E0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screensframework.Screen2Controller">
+  <children>
+    <VBox alignment="TOP_CENTER" maxHeight="800.0" maxWidth="800.0" minHeight="800.0" minWidth="800.0" prefHeight="800.0" prefWidth="800.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+            <LineChart fx:id="graph" title="Graph">
+              <xAxis>
+		        <NumberAxis label="X AXIS" side="BOTTOM" tickUnit="1.0" fx:id="xaxis_id" />
+		      </xAxis>
+		      <yAxis>
+		        <NumberAxis fx:id="yaxis_id" label="Y AXIS" side="LEFT" tickUnit="1.0" />
+		      </yAxis>
+            </LineChart>
+            <Button mnemonicParsing="false" onAction="#pull_Data_And_Populate_Graph" text="Pull_And_Populate" />
+      </children>
+    </VBox>
+  </children>
+</AnchorPane>

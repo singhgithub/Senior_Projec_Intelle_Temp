@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+<title>Main_Page</title>
+<script src="js_files/gauge.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="http://static.pureexample.com/js/flot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript"
+	src="http://static.pureexample.com/js/flot/jquery.flot.min.js"></script>
+<script type="text/javascript"
+	src="http://static.pureexample.com/js/flot/jquery.flot.time.js"></script>
+<script type="text/javascript"
+	src="http://static.pureexample.com/js/flot/jquery.flot.axislabels.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+
+<script> 
+	var all_rooms_array= []; 
+	var room1_array = [];
+	var room2_array = [];
+	var room3_array = [];
+	var room1_array_2d = [];
+	var room2_array_2d = [];
+	var room3_array_2d = [];
+	
+	$(document).ready(function(){
+		console.log("document.ready() is Called");
+	  	//GET_To_All_Rooms_Data_Servlet();
+		setInterval(GET_To_All_Rooms_Data_Servlet, 9000);
+		
+		GET_To_Room1_Servlet();
+		GET_To_Room2_Servlet();
+		GET_To_Room3_Servlet();
+		
+	  });
+	
+	//this method fetch the last value of all the room and populate the array a[]
+	function GET_To_All_Rooms_Data_Servlet(){
+		console.log("GET_To_All_Rooms_Data_Servlet() is Called");
+		$.ajax({
+	    	url:"All_Rooms_Data_Servlet",
+	    	dataType: 'json', 
+	    	success:function(result){
+	      
+	      		$.each(result, function (index, value) {
+	      			//console.log(index);			//index is the name of the array 
+	      			console.log("Json Array: " + value);			//value are the values 
+	      			all_rooms_array = value;
+	      	    });
+	      		console.log("all_rooms_array: "+ all_rooms_array.toString());		//if i don't do tostring() i get an error 
+	      		//console.log("all_rooms_array: "+ value[0]);      		
+	    }});
+	}
+	
+	function GET_To_Room1_Servlet() {
+		console.log("GET_To_Room1_Servlet() is Called");
+		$.ajax({
+	    	url:"Room1_Servlet",
+	    	dataType: 'json',
+	    	async:false,
+	    	success:function(result){
+	      
+	      		$.each(result, function (index, value) {
+	      			//console.log(index);			//index is the name of the array 
+	      			console.log("Json Array: " + value);			//value are the values 
+	      			room1_array = value;
+	      		});
+	      		console.log("room1_array: "+ room1_array.toString());		//if i don't do tostring() i get an error 
+	      		//console.log("room1_array: "+ room1_array[0]);      
+	    }});
+	}
+	
+	function GET_To_Room2_Servlet() {
+		console.log("GET_To_Room2_Servlet() is Called");
+		$.ajax({
+	    	url:"Room2_Servlet",
+	    	dataType: 'json',
+	    	async:false,
+	    	success:function(result){
+	      
+	      		$.each(result, function (index, value) {
+	      			//console.log(index);			//index is the name of the array 
+	      			console.log("Json Array: " + value);			//value are the values 
+	      			room2_array = value;
+	      			
+	      	    });
+	      		console.log("room2_array: "+ room2_array.toString());		//if i don't do tostring() i get an error 
+	    }});
+	}
+	
+	function GET_To_Room3_Servlet() {
+		console.log("GET_To_Room3_Servlet() is Called");
+		$.ajax({
+	    	url:"Room3_Servlet",
+	    	dataType: 'json',
+	    	async:false,
+	    	success:function(result){
+	      
+	      		$.each(result, function (index, value) {
+	      			//console.log(index);			//index is the name of the array 
+	      			console.log("Json Array: " + value);			//value are the values 
+	      			room3_array = value;
+	      	    });
+	      		console.log("room3_array: "+ room3_array.toString());		//if i don't do tostring() i get an error 
+	    }});
+	}
+	
+	function Display_Graph() {
+		console.log("Display_Graph() is Called");
+		//console.log(room1_array.toString());
+		var data,options;				
+
+		arrays_converstions();
+		
+		data = [{ data:room1_array_2d, 
+	         label:"Room1", 
+	         lines:{show:true},
+			 points:{show:true},
+			 yaxis : {							//its used to set the min and max values for y axis range
+					min : 60,							
+					max : 100							 
+					}
+			 }
+	        ,{ data:room2_array_2d, 
+	          label:"Room2", 
+	          lines:{show:true}, 
+	          points:{show:true},
+	          yaxis :{							//its used to set the min and max values for y axis range
+					min : 60,							
+					max : 100							 
+					}
+			 }
+	        ,{ data:room3_array_2d, 
+	          label:"Room3", 
+	          lines:{show:true}, 
+	          points:{show:true},
+	          yaxis :{							//its used to set the min and max values for y axis range
+					min : 60,							
+					max : 100							 
+					}
+			 }];
+
+	  options = {
+			  legend:{position:"nw"},
+			  grid: {hoverable: true,
+				    borderWidth: 3,
+				    mouseActiveRadius: 50,
+				    backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
+				    axisMargin: 20}
+			  };
+
+	  
+	  	$.plot($("#placeholder"),data,options);
+	}	  
+	
+	//this method take the array that hold the fetch database value and then place that array into an another 2d array
+	function arrays_converstions() {
+		console.log("arrays_converstions() is called");
+		for (var i = 0; i < room1_array.length; i++) {
+			room1_array_2d.push([i, room1_array[i]]);
+			room2_array_2d.push([i, room2_array[i]]);
+			room3_array_2d.push([i, room3_array[i]]);
+		}
+		
+		console.log("arrays_converstions() converstion Successful");
+		//console.log("room1_array_2d : " + room1_array_2d);
+		//console.log("room2_array_2d : " + room2_array_2d);
+		//console.log("room3_array_2d : " + room3_array_2d);
+	}
+	
+	function button_clicked() {
+		console.log("button_clicked() is Called");
+		Display_Graph();
+	}
+	
+	</script>
+
+<!-- javascript for Room1 slider and posting to servlet --> 
+<script>
+  var threshold_value;
+  
+  $(function() {
+	console.log("annomous method for Room1 is Called")
+    $( "#slider-vertical" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+        threshold_value = ui.value;
+        console.log("annomous method for Room1 threshold_value changed: " +threshold_value);
+      } 
+    });
+    
+    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );   		////not user what this line does
+  	});
+  
+  //listener method for the button when pressed the temp key,value pair send to servlet 
+  function send_Temp_To_Room1_Servlet() {
+	  console.log("send_Temp_To_Room1_Servlet() you pressed the button");
+	  console.log("send_Temp_To_Room1_Servlet() is Called");
+	  
+	  $.post("Post_Servlet",
+				{id:88,temp:threshold_value},
+				function(rsp){
+					console.log("send_Temp_To_Room1_Servlet() post() is called");
+					console.log("send_Temp_To_Room1_Servlet() response: "+rsp);
+				});
+}
+  </script>
+
+<!-- javascript for Room2 slider and posting to servlet --> 
+<script>
+  var threshold_value;
+  
+  $(function() {
+	console.log("annomous method for Room2 is Called")
+    $( "#slider-vertical0" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#amount0" ).val( ui.value );
+        threshold_value = ui.value;
+        console.log("annomous method for Room2 threshold_value changed: " +threshold_value);
+      } 
+    });
+    
+    $( "#amount0" ).val( $( "#slider-vertical0" ).slider( "value" ) );   		////not user what this line does
+  	});
+  
+  //listener method for the button when pressed the temp key,value pair send to servlet 
+  function send_Temp_To_Room2_Servlet() {
+	  console.log("send_Temp_To_Room2_Servlet() you pressed the button");
+	  console.log("send_Temp_To_Room2_Servlet() is Called");
+	  
+	  $.post("Post_Servlet",
+				{id:77,temp:threshold_value},
+				function(rsp){
+					console.log("send_Temp_To_Room2_Servlet() post() is called");
+					console.log("send_Temp_To_Room2_Servlet() response: "+rsp);
+				});
+}
+  </script>
+  
+  <!-- javascript for Room3 slider and posting to servlet --> 
+<script>
+  var threshold_value;
+  
+  $(function() {
+	console.log("annomous method for Room3 is Called")
+    $( "#slider-vertical1" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#amount1" ).val( ui.value );
+        threshold_value = ui.value;
+        console.log("annomous method for Room3 threshold_value changed: " +threshold_value);
+      } 
+    });
+    
+    $( "#amount1" ).val( $( "#slider-vertical1" ).slider( "value" ) );   		////not user what this line does
+  	});
+  
+  //listener method for the button when pressed the temp key,value pair send to servlet 
+  function send_Temp_To_Room3_Servlet() {
+	  console.log("send_Temp_To_Room3_Servlet() you pressed the button");
+	  console.log("send_Temp_To_Room3_Servlet() is Called");
+	  
+	  $.post("Post_Servlet",
+				{id:66,temp:threshold_value},
+				function(rsp){
+					console.log("send_Temp_To_Room3_Servlet() post() is called");
+					console.log("send_Temp_To_Room3_Servlet() response: "+rsp);
+				});
+}
+  </script>
+
+</head>
+
+<body>
+	<canvas id="gauge1" width="300" height="300" data-type="canv-gauge"
+		data-title="Room1"
+		data-onready="setInterval( function() { 
+		Gauge.Collection.get('gauge1').setValue( all_rooms_array[0]);
+		console.log('Gauge1 is updated');}, 10000);"></canvas>
+
+	<canvas id="gauge2" width="300" height="300" data-type="canv-gauge"
+		data-title="Room1"
+		data-onready="setInterval( function() { 
+		Gauge.Collection.get('gauge2').setValue( all_rooms_array[1]);
+		console.log('Gauge2 is updated');}, 10000);"></canvas>
+
+	<canvas id="gauge3" width="300" height="300" data-type="canv-gauge"
+		data-title="Room1"
+		data-onready="setInterval( function() { 
+		Gauge.Collection.get('gauge3').setValue( all_rooms_array[2]);
+		console.log('Gauge3 is updated');}, 10000);"></canvas>
+
+
+	<!-- Room1 slider -->
+	<p>
+	<label for="amount"></label> 
+	<input type="text" id="amount" readonly
+		style="border: 0; color: #f6931f; font-weight: bold; font-size: 30px;">
+	</p>
+	<div id="slider-vertical" style="height: 200px;"></div>
+	<button id="button_id" onclick="send_Temp_To_Room1_Servlet()">Post
+		Temp To Room1 Servlet</button>
+		
+	<!-- Room2 Slider -->	
+	<p>
+	<label for="amount0"></label> 
+	<input type="text" id="amount0" readonly
+		style="border: 0; color: #f6931f; font-weight: bold; font-size: 30px;">
+	</p>
+	<div id="slider-vertical0" style="height: 200px;"></div>
+	<button id="button_id" onclick="send_Temp_To_Room2_Servlet()">Post
+		Temp To Room2 Servlet</button>
+	
+	<!-- Room3 Slider -->
+	<p>
+	<label for="amount1"></label> 
+	<input type="text" id="amount1" readonly
+		style="border: 0; color: #f6931f; font-weight: bold; font-size: 30px;">
+	</p>
+	<div id="slider-vertical1" style="height: 200px;"></div>
+	<button id="button_id" onclick="send_Temp_To_Room3_Servlet()">Post
+		Temp To Room3 Servlet</button>
+	
+	
+	<div id="placeholder" style="width: 900px; height: 300px;"></div>
+	<button id="button_id" type="button" onclick="button_clicked()">display_graph_data</button>
+
+</body>
+</html>
