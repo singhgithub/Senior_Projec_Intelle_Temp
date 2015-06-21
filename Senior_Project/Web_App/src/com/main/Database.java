@@ -65,12 +65,12 @@ public class Database {
 			
 			//NOTE that lot of the places below i am using 3360 instead of 3306
 			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20:3306/HelloWorld");
-			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20/HelloWorld","root", "sardari1");
-			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20:3306/phpmyadmin/index.php","root", "sardari1");
-			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20/phpmyadmin/index.php","root", "sardari1");
+			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20/HelloWorld","root", "*******");
+			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20:3306/phpmyadmin/index.php","root", "*******");
+			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20/phpmyadmin/index.php","root", "*******");
 			//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test");
 			//connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3360/test");
-			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20:3306/HelloWorld?user=root&password=sardari1");
+			//connection = DriverManager.getConnection("jdbc:mysql://10.0.0.20:3306/HelloWorld?user=root&password=*******");
 			
 			//register the jdbc drivers, i didn't need to do this in my Multiscree_Main senior project
 			//if i uncomment the below line i get an error: no sutiable drivers were found 
